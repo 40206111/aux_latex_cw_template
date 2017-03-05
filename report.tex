@@ -1,9 +1,9 @@
 %FILL THESE IN
 \def\mytitle{Coursework Report}
-\def\mykeywords{Fill, These, In, So, google, can, find, your, report}
-\def\myauthor{Cool Student}
-\def\contact{4008000@napier.ac.uk}
-\def\mymodule{Module Title (SET00000)}
+\def\mykeywords{OpenGL, GLFW, Shading, lighting, Non-Photorealistic}
+\def\myauthor{Emma Parsley}
+\def\contact{40206111@live.napier.ac.uk}
+\def\mymodule{Computer graphics (SET08116)}
 %YOU DON'T NEED TO TOUCH ANYTHING BELOW
 \documentclass[10pt, a4paper]{article}
 \usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
@@ -70,76 +70,88 @@
 \begin{document}
 	\maketitle
 	\begin{abstract}
-		\lipsum[2]
+		This project aim is to create a real time 3d enviroment using OpenGL and C++. The intent is to create a 3D scene shaded as is it where a cartoon. blah blah blah come back to this when there's some stuff in my report.
 	\end{abstract}
     
 	\textbf{Keywords -- }{\mykeywords}
     %START FROM HERE
 	\section{Introduction}
     \paragraph{Referencing}
+    Leaving this in in case I need to remember how to do this;
+    
     You should cite References like this: \cite{Keshav}. The references are saved in an external .bib file, and will automatically be added ot the bibliography at the end once cited.
     
-    \figuremacro{h}{placeholder}{ImageTitle}{ - Some Descriptive Text}{1.0}
+    The project is a scene of three floating islands shown using non-photorealistic rendering to create a visually interesting cartoon-like environment. The project includes use of normal mapping, to show detail on otherwise flat objects, skybox, to create the appearance of an endless environment, multiple lights and sampled Phong shading to cause the cell shaded look. 
+    
+    \section{Related Work}
+    
+    \section{Implementation}
+    \subsection{Lighting}
+    To create a cartoon-like environment the light was calculated using a cell shading technique. A 1D texture of shades which will be sampled from to decide the colour of the light.
+	
+	\paragraph{Ambient Lighting}
+	
+	Ambient lighting is the background lighting which has no direction and so just shows flat colours for the objects in the scene. See Figure~\ref{fig:Ambient}.
+	
+	\paragraph{Directional Lighting}
+	 
+	 Directional Lighting effects the whole scene from one direction. In this project it uses the phong shading model;
+	 
+	 {\centering \(
+	 	I = I_{a} K_{a}+f_{att}I_{p}(K_{d}N.L+K_{s}(R.V)^n)
+	 	\)\par}
+	 
+	 However to create the cell shading effect the diffuse and specular light are clamped and used as texture coordinates to sample from a 1D texture of shades then multiplied buy the reflection and light colour. See Figure~\ref{fig:Directional}.
+	 
+	 \paragraph{Spot and Point Lights}
+	 
+	 The scene can also be lit by spot and point lights which are done in a very similar way to the directional light where we clamp;
+	 
+	  {\centering \Large\(
+	  	\frac{max(-R.L,0)^p}{k_{c}+k_{l}d+K_{q}d^2}
+	  	\)\par}
+	  
+	  for spot lights and;
+	  
+	  	  {\centering \Large\(
+	  	  	\frac{1}{k_{c}+k_{l}d+K_{q}d^2}
+	  	  	\)\par}
+	  for point lights to find the texture coordinates to use to sample the shade and multiply it by the light colour and then use the result of that as the light colour for the same calculations we did in directional lighting, including the sampling from the 1D texture again. See figure~\ref{fig:Spot} and figure~\ref{fig:Point}.
+	  
+	  \paragraph{Combined Lighting}
+	  
+	  The combined lighting is simply done by adding the calculated colours of each light in the fragment shader. This allows for more than just the shades in the 1D texture to appear making clear the geometry of the object while still restricting the shades enough for it to appear cartoon-like. See figure~\ref{fig:Multiple}.
+	  	 
+	 \figuremacro{h}{Ambient}{Ambient Lighting}{ -Scene with only ambient lighting affecting it}{1.0}
+	 \figuremacro{h}{Directional}{Directional Lighting}{ - Scene with only directional lighting affecting it}{1.0}
+	 \figuremacro{h}{Spot}{Spot Lighting}{ -Scene with only Spot lights affecting it}{1.0}
+	 \figuremacro{h}{Point}{Point Lighting}{ - Scene with only Point light affecting it}{1.0}
+	 \figuremacro{h}{Multiple}{Multiple Lights}{ - Scene with all lights affecting it}{1.0}
+	 
+	 \subsection{Normal Mapping}
+	 In order to create detail on the flat textures used within the project normal mapping is used. The use of a normal map allows for this detail without needing to render and display more vertices. The castle in figure~\ref{fig:Normals} has just a flat texture on it but when displayed with the normal map it appears to have bricks.
+	 
+	 \figuremacro{h}{Normals}{Normal Mapping}{ - Left: Castle without normal mapping, Right: castle with normal mapping}{1.0}
+	 
+	 \subsection{Skybox}
+	 In order to complete the visual pleasing look of this project a skybox was added to create the illusion of an endless environment in the sky above the sea. The skybox is simply a cube scaled up with six seamless textures applied on each face to create the look of the environment. Face culling is disabled on the cube so you can see the textures on the inside, and the cube is moves to the position of the camera so that the user cannot escape the skybox.
+	
+	\section{Future Work}
+	\paragraph{sky}
+	Adding clouds to the sky around the islands would add to the overall effect of the scene and visual appeal
+	\paragraph{Normal maps}
+	Adding normal maps to the islands could create a nice grass-like effect over the current flat texture
+	\paragraph{Outlines}
+	Having outlines appear around the objects and over crease edges would really make the objects stand out in the scene and add to the non-photorealistic cartoon style.
 	
 	\section{Formatting}
 	Some common formatting you may need uses these commands for \textbf{Bold Text}, \textit{Italics}, and \underline{underlined}.
-	\subsection{LineBreaks}
-	Here is a line
-    
-    Here is a line followed by a double line break.
-	This line is only one line break down from the above, Notice that latex can ignore this
-    
-    We can force a break \\ with the break operator.
-    
-	\subsection{Maths}
-    Embedding Maths is Latex's bread and butter    
-    
-    {\centering \Large \(
-        J = \begin{bmatrix}
-            \frac{\delta e}{\delta \theta _0}
-            \frac{\delta e}{\delta \theta _1}
-            \frac{\delta e}{\delta \theta _2}
-        \end{bmatrix}
-        = e_{current} - e_{target} 
-    \)\par}
 	
 	\subsection{Code Listing}
     You can load segments of code from a file, or embed them directly.
-    
-\begin{lstlisting}[caption = Hello World! in c++]
-#include <iostream>
-
-int main() {
-    std::cout << "Hello World!" << std::endl;
-    std::cin.get();
-    return 0;
-}
-\end{lstlisting}
-
-\lstinputlisting[caption = Hello World! in python script]{./sourceCode/hello.py}
-    
-\subsection{PseudoCode}
-
-\begin{algorithm}[h]
-\For{$i = 0$ \KwTo $100$}{
- print\_number = true\;
-\If{i is divisible by 3}{
- print "Fizz"\;
- print\_number = false\;
-}
-\If{i is divisible by 5}{
- print "Buzz"\;
- print\_number = false\;
-}
-\If{print\_number}{
-    print i\;
-}
-print a newline\;
-}
-\caption{FizzBuzz}
-\end{algorithm}
 	
 \section{Conclusion}	
+
 \bibliographystyle{ieeetr}
 \bibliography{references}
 		
