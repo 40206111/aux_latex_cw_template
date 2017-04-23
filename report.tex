@@ -78,7 +78,7 @@
 	\textbf{Keywords -- }{\mykeywords}
     %START FROM HERE
 	\section{Introduction}
-    The project is a scene of three floating islands shown using non-photorealistic rendering to create a visually interesting cartoon-like environment. The project includes use of normal mapping, to show detail on otherwise flat objects, skybox, to create the appearance of an endless environment, multiple lights and sampled Phong shading to cause the cell shaded look. 
+    The project is a scene of three floating islands shown using non-photorealistic rendering to create a visually interesting cartoon-like environment. The project includes use of normal mapping, to show detail on otherwise flat objects, skybox, to create the appearance of an endless environment, multiple lights using sampled Phong shading to cause the cell shaded look, edge detection to create outlines, post processing, and debug views. 
     
     \section{Implementation}
     \subsection{Lighting}
@@ -136,26 +136,76 @@
 	 To help with the visual pleasing look of this project a skybox was added to create the illusion of an endless environment in the sky above the sea. The skybox is simply a cube scaled up with six seamless textures applied on each face to create the look of the environment. Face culling is disabled on the cube so you can see the textures on the inside, and the cube is moves to the position of the camera so that the user cannot escape the skybox.
 	 
 	 \subsection{Outlines}
-	 To continue the cartoon look of the project outlines should be added. One way of doing this is using post processing techniques. By first rendering the scene in a frame buffer we can use edge detection on this frame to find the edges. To detect the edges we use a technique called box filtering to calculate the resultant pixel colour from the surrounding pixel colours. If the pixel is a different colour to the surrounding pixels it is an edge. All the edges will be the colour of the original pixels and anything that is not an edge will be black.
+	 \paragraph{Edge Detection and Masking}
+	 To continue the cartoon look of the project outlines were be added. One way of doing this is using post processing techniques. By first rendering the scene in a frame buffer we can use edge detection on this frame to find the edges. To detect the edges we use a technique called box filtering to calculate the resultant pixel colour from the surrounding pixel colours. If the pixel is a different colour to the surrounding pixels it is an edge. All the edges will be the colour of the original pixels and anything that is not an edge will be black.
 	 
-	 Once the edges are calculated we can set all coloured pixels to black and all pixels close to black to white. This will give something we can later use as a mask and overlay on top of the rendered scene.
+	 Once the edges are calculated we can set all coloured pixels to black and all pixels close to black to white. This will give something we can later use as a mask and overlay on top of the rendered scene. These outlines can be put on top of our current scene by rendering the scene into a separate frame buffer and multiplying a sample from this frame with a sample from the mask created earlier. If the skybox and textures are rendered before edge detection the outlines will appear between the colour changes in those too. See figure~\ref{fig:edges}.
 	 
+	 \figuremacro{h}{outlines}{Just the outlines}{ - Scene with no objects, just the outlines from edge detection}{1.0}
+	 
+	 \figuremacro{h}{edges}{Edge Detection and Masking}{ - Scene with edge detected lines masked over it}{1.0}
+	 
+	 \paragraph{Silhouette}
+	 
+	 The issue with this edge detection method is it takes three render passes to complete and we can't control the line width of the outlines. Another option for the outlines is to create geometry, this can be done in one pass and the line width is adjustable\cite{Outlines}. For the final project these outlines are left out as some problems were encountered while attempting this.
+	 
+	 To do this each vertex of a triangle must be checked to see if it has a front facing normal. If precisely one or two normals are front facing this triangle will need a silhouette segment. A vertex is front facing if
+	 
+	 	{\centering\(
+	 	\alpha_{a} = normal_{a} \cdotp camera_{a} > 0
+	 	\)\par}
+	 
+	 The first two points of the silhouette segment can be calculated using linear interpolation ({\(y_{ab}\)}).
+	 
+	 	{\centering \Large\(
+	 	y_{ab} = \frac{\alpha_{a}b - \alpha_{b}a}{\alpha_{a} - \alpha_{b}}
+	 	\)\par}
+ 	
+ 	The second two points are simple the previous two plus their normal multiplied by a float the value of which will change the size of the lines. 
+ 	
+ 	\figuremacro{h}{silhouetted}{Silhouette Outline}{ - Attempted silhouette outlines around objects}{1.0}
+ 	
+ 	The edges of this are still patchy, segments appear to be facing in the wrong directions where they should all face the camera for the optimum effect. Also The outer points of the segment are not connected, a method is needed to make sure there are no gaps between silhouette segments. See figures~\ref{fig:silhouetted} and~\ref{fig:wireframeoutlines}.
+ 	
+ 	 \figuremacro{h}{wireframeoutlines}{Wireframe Silhouette Outline}{ - Attempted silhouette outlines drawn in wire frame so the unconnected parts are more obvious}{1.0}
+ 	 
+ 	 \subsection{Post Processing}
+ 	 
+ 	 As well as edge detection and masking post processing can be used to create all sorts of filters across the screen such as adding the ability to adjust the colours. Rendering the scene into a frame buffer and then rendering this frame onto a quad across the screen with the simple edit of adding the RGB values that will be changed to the end colour of each pixel allows any colour to be added or taken away from the scene.
+ 	 
+ 	 \figuremacro{h}{colours}{Adjusted colour values}{ - Scene with colour values adjusted}{1.0}
+	
+	\subsection{Debug}
+	
+	This scene has the ability to view the objects normals and wireframes to help with any debugging
+	\paragraph{normals}
+	Normals can be created using a geometry shader by simply emitting the original position of each vertex and the position plus the normal in a line strip. Outputting one line for each vertex with these positions creates visible normals. See figure~\ref{fig:wirenorms}.
+	\paragraph{Wireframes}
+	Creating a wireframe is very similar to creating visible normals. Simply output each vertex at it's original position and connect these together in a strip of lines. This will cause each edge of the triangles in the geometry to be drawn out and create a wireframe. See figure~\ref{fig:wirenorms}.
+	
+	 \figuremacro{h}{wirenorms}{Wireframe with Normals Showing}{ - Scene with wireframe of objects and normals showing}{1.0}
+	 
+	\subsection{Optimisation}
+	Using visual studio profiling it is obvious that the render function takes up a lot of strain on the CPU, to fix this the code was checked for any unnecessary binds, and everything that didn't need to be within loops was moved out of them.  
 	
 	\section{Future Work}
+	\paragraph{Optimisation}
+	Although the scene runs fine at the moment it would be good to add more optimisation such as frustum culling to stop unseen objects from being rendered.
 	\paragraph{Sky}
 	Adding clouds to the sky around the islands would
-	add to the overall effect of the scene and visual appeal,
-	and perhaps a skybox that itself is more cartoon-ish to
-	add to the style.
+	add to the overall effect of the scene and visual appeal.
 	\paragraph{Normal maps}
 	Adding normal maps to the islands could create a nice grass-like effect over the current flat texture
 	\paragraph{Outlines}
-	Having outlines appear around the objects and over crease edges would really make the objects stand out in the scene and add to the non-photorealistic cartoon style.
+	The use of geometry to create silhouetted outlines where the line width can be changed would help really show this cartoon non-photorealistic style.
 	
 \section{Conclusion}	
 
+The project works as intended creating an effective nonphotorealistic
+enviroment. The use of skybox, cell shading and edge detection work well together to create the desired effect. However, more could be added and
+worked on to optimise and visually enhance the current scene.
+
 \bibliographystyle{ieeetr}
 \bibliography{references}
- Leaving this in in case I need to remember how to do this \cite{Outlines}.
 		
 \end{document}
