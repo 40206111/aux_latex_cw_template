@@ -1,6 +1,6 @@
 %FILL THESE IN
 \def\mytitle{Coursework Report}
-\def\mykeywords{OpenGL, GLFW, Shading, lighting, Non-Photorealistic}
+\def\mykeywords{OpenGL, GLFW, Shading, lighting, Non-Photorealistic, Outlines, Post-Processing}
 \def\myauthor{Emma Parsley}
 \def\contact{40206111@live.napier.ac.uk}
 \def\mymodule{Computer graphics (SET08116)}
@@ -70,28 +70,27 @@
 \begin{document}
 	\maketitle
 	\begin{abstract}
-		This project aim is to create a real time 3d enviroment using OpenGL and C++. The intent is to create a 3D scene shaded as is it where a cartoon. blah blah blah come back to this when there's some stuff in my report.
+		This project aims to render a 3D environment in real-time,
+		using OpenGL and C++. The intent is to create a 3D
+		scene shaded as if it where a cartoon
 	\end{abstract}
     
 	\textbf{Keywords -- }{\mykeywords}
     %START FROM HERE
 	\section{Introduction}
-    \paragraph{Referencing}
-    Leaving this in in case I need to remember how to do this;
-    
-    You should cite References like this: \cite{Keshav}. The references are saved in an external .bib file, and will automatically be added ot the bibliography at the end once cited.
-    
     The project is a scene of three floating islands shown using non-photorealistic rendering to create a visually interesting cartoon-like environment. The project includes use of normal mapping, to show detail on otherwise flat objects, skybox, to create the appearance of an endless environment, multiple lights and sampled Phong shading to cause the cell shaded look. 
-    
-    \section{Related Work}
     
     \section{Implementation}
     \subsection{Lighting}
     To create a cartoon-like environment the light was calculated using a cell shading technique. A 1D texture of shades which will be sampled from to decide the colour of the light.
 	
+	\figuremacro{h}{Ambient}{Ambient Lighting}{ -Scene with only ambient lighting affecting it}{1.0}
+	
 	\paragraph{Ambient Lighting}
 	
 	Ambient lighting is the background lighting which has no direction and so just shows flat colours for the objects in the scene. See Figure~\ref{fig:Ambient}.
+	
+	\figuremacro{h}{Directional}{Directional Lighting}{ - Scene with only directional lighting affecting it}{1.0}
 	
 	\paragraph{Directional Lighting}
 	 
@@ -103,6 +102,8 @@
 	 
 	 However to create the cell shading effect the diffuse and specular light are clamped and used as texture coordinates to sample from a 1D texture of shades then multiplied buy the reflection and light colour. See Figure~\ref{fig:Directional}.
 	 
+	 \figuremacro{h}{Spot}{Spot Lighting}{ -Scene with only Spot lights affecting it}{1.0}
+	 
 	 \paragraph{Spot and Point Lights}
 	 
 	 The scene can also be lit by spot and point lights which are done in a very similar way to the directional light where we clamp;
@@ -110,6 +111,8 @@
 	  {\centering \Large\(
 	  	\frac{max(-R.L,0)^p}{k_{c}+k_{l}d+K_{q}d^2}
 	  	\)\par}
+	  
+	  \figuremacro{h}{Point}{Point Lighting}{ - Scene with only Point light affecting it}{1.0}
 	  
 	  for spot lights and;
 	  
@@ -121,11 +124,7 @@
 	  \paragraph{Combined Lighting}
 	  
 	  The combined lighting is simply done by adding the calculated colours of each light in the fragment shader. This allows for more than just the shades in the 1D texture to appear making clear the geometry of the object while still restricting the shades enough for it to appear cartoon-like. See figure~\ref{fig:Multiple}.
-	  	 
-	 \figuremacro{h}{Ambient}{Ambient Lighting}{ -Scene with only ambient lighting affecting it}{1.0}
-	 \figuremacro{h}{Directional}{Directional Lighting}{ - Scene with only directional lighting affecting it}{1.0}
-	 \figuremacro{h}{Spot}{Spot Lighting}{ -Scene with only Spot lights affecting it}{1.0}
-	 \figuremacro{h}{Point}{Point Lighting}{ - Scene with only Point light affecting it}{1.0}
+	 
 	 \figuremacro{h}{Multiple}{Multiple Lights}{ - Scene with all lights affecting it}{1.0}
 	 
 	 \subsection{Normal Mapping}
@@ -134,25 +133,29 @@
 	 \figuremacro{h}{Normals}{Normal Mapping}{ - Left: Castle without normal mapping, Right: castle with normal mapping}{1.0}
 	 
 	 \subsection{Skybox}
-	 In order to complete the visual pleasing look of this project a skybox was added to create the illusion of an endless environment in the sky above the sea. The skybox is simply a cube scaled up with six seamless textures applied on each face to create the look of the environment. Face culling is disabled on the cube so you can see the textures on the inside, and the cube is moves to the position of the camera so that the user cannot escape the skybox.
+	 To help with the visual pleasing look of this project a skybox was added to create the illusion of an endless environment in the sky above the sea. The skybox is simply a cube scaled up with six seamless textures applied on each face to create the look of the environment. Face culling is disabled on the cube so you can see the textures on the inside, and the cube is moves to the position of the camera so that the user cannot escape the skybox.
+	 
+	 \subsection{Outlines}
+	 To continue the cartoon look of the project outlines should be added. One way of doing this is using post processing techniques. By first rendering the scene in a frame buffer we can use edge detection on this frame to find the edges. To detect the edges we use a technique called box filtering to calculate the resultant pixel colour from the surrounding pixel colours. If the pixel is a different colour to the surrounding pixels it is an edge. All the edges will be the colour of the original pixels and anything that is not an edge will be black.
+	 
+	 Once the edges are calculated we can set all coloured pixels to black and all pixels close to black to white. This will give something we can later use as a mask and overlay on top of the rendered scene.
+	 
 	
 	\section{Future Work}
-	\paragraph{sky}
-	Adding clouds to the sky around the islands would add to the overall effect of the scene and visual appeal
+	\paragraph{Sky}
+	Adding clouds to the sky around the islands would
+	add to the overall effect of the scene and visual appeal,
+	and perhaps a skybox that itself is more cartoon-ish to
+	add to the style.
 	\paragraph{Normal maps}
 	Adding normal maps to the islands could create a nice grass-like effect over the current flat texture
 	\paragraph{Outlines}
 	Having outlines appear around the objects and over crease edges would really make the objects stand out in the scene and add to the non-photorealistic cartoon style.
 	
-	\section{Formatting}
-	Some common formatting you may need uses these commands for \textbf{Bold Text}, \textit{Italics}, and \underline{underlined}.
-	
-	\subsection{Code Listing}
-    You can load segments of code from a file, or embed them directly.
-	
 \section{Conclusion}	
 
 \bibliographystyle{ieeetr}
 \bibliography{references}
+ Leaving this in in case I need to remember how to do this \cite{Outlines}.
 		
 \end{document}
