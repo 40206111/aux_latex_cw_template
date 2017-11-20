@@ -1,11 +1,11 @@
 %FILL THESE IN
-\def\mytitle{Coursework Report}
-\def\mykeywords{Fill, These, In, So, google, can, find, your, report}
-\def\myauthor{Cool Student}
-\def\contact{4008000@napier.ac.uk}
-\def\mymodule{Module Title (SET00000)}
+\def\mytitle{Data Analytics- Coursework Report}
+\def\mykeywords{data, preperation, mining, cleaning, visualisation}
+\def\myauthor{Emma Parsley}
+\def\contact{40206111@live.napier.ac.uk}
+\def\mymodule{Data Analytics (SET09120)}
 %YOU DON'T NEED TO TOUCH ANYTHING BELOW
-\documentclass[10pt, a4paper]{article}
+\documentclass[12pt, a4paper]{article}
 \usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
 \twocolumn
 \usepackage{graphicx}
@@ -70,12 +70,23 @@
 \begin{document}
 	\maketitle
 	\begin{abstract}
-		\lipsum[2]
+		This projects aim is to prepare, analyse and visualise the data historically recorded by a bank in Germany. The data will be analysed using algorithms such as classification and regression.
 	\end{abstract}
     
 	\textbf{Keywords -- }{\mykeywords}
     %START FROM HERE
 	\section{Introduction}
+ 	The data analysed in this project will be the credits data set given to us for this poject. This data set contains 1000 rows each with 13 attributes. 
+ 	The data will need to be cleaned and prepared, before it can be analysed. OpenRefine will be used to clean and prepare the date, the program Weka will be used to analyse the data and it will be visualised using R.
+ 	
+ 	\section{Preperation}
+ 	\subsection{Cleaning}
+ 	In order to clean the data the dataset was opened in OpenRefine. The most obvious problem with the data was that some of the fields under the attributes; checking\_status, credit\_history,  saving\_status, personal\_status and job, had single quotes around them. This was easily rectified using the replace command in OpenRefine to transform all the cells in these coloums, replaceing the single quote with and empty string.
+ 	
+ 	The purpose attribute contained many values that where the same except they were written or spelled differently. Any values that simply had single quotes around them were fixed in the previous step. A few values needed fixed so they were all spelt correctly and others just needed fixed so their use of case was consistent (e.g Education needed to become education).
+ 	
+ 	From sorting the credit\_amount attribute from highest to loweset it becomes clear that there are 8 rows of data with what seem like ridiculously high amounts of money for it's purpose, it seems likely that there were extra zeros at the end, however there is no way of knowing how many of the zeros were accidental so those rows were removed from the data set.
+ 	
     \paragraph{Referencing}
     You should cite References like this: \cite{Keshav}. The references are saved in an external .bib file, and will automatically be added ot the bibliography at the end once cited.
     
