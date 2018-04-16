@@ -1,9 +1,10 @@
 %FILL THESE IN
 \def\mytitle{Coursework Report}
-\def\mykeywords{Fill, These, In, So, google, can, find, your, report}
-\def\myauthor{Cool Student}
-\def\contact{4008000@napier.ac.uk}
-\def\mymodule{Module Title (SET00000)}
+\def\mykeywords{game, platformer, 2d, rogue-like, C++, SFML}
+\def\myauthor{Emma Parsley \& Timothy Sanderson}
+\def\contact{40206111@live.napier.ac.uk \&\\
+	 40219124@live.napier.ac.uk}
+\def\mymodule{Games Engineering (SET09121)}
 %YOU DON'T NEED TO TOUCH ANYTHING BELOW
 \documentclass[10pt, a4paper]{article}
 \usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
@@ -69,78 +70,93 @@
 \sloppy
 \begin{document}
 	\maketitle
-	\begin{abstract}
-		\lipsum[2]
-	\end{abstract}
     
 	\textbf{Keywords -- }{\mykeywords}
     %START FROM HERE
 	\section{Introduction}
-    \paragraph{Referencing}
-    You should cite References like this: \cite{Keshav}. The references are saved in an external .bib file, and will automatically be added ot the bibliography at the end once cited.
-    
-    \figuremacro{h}{placeholder}{ImageTitle}{ - Some Descriptive Text}{1.0}
 	
-	\section{Formatting}
-	Some common formatting you may need uses these commands for \textbf{Bold Text}, \textit{Italics}, and \underline{underlined}.
-	\subsection{LineBreaks}
-	Here is a line
+	The aim of this project was to create a prototype of a 2D video game using C++ and SFML. \\\\
+	The game designed for this is "Working Nine to Die". A rogue like platformer, where the player is expected to make there way through a dungeon of enemies collecting items to make themselves more powerful. The player cannot kill enemies but may knock them out instead. The enemies will wake up, ready to fight a few seconds later.\\\\
+	"Working Nine to Die" was heavily inspired by the game "The Binding of Isaac: Rebirth", taking the essence of exploring to find items in order to upgrade your character and make them powerful enough to complete the game, and moving into a 2d platformer game.\\\\
+	The gimmick of this game is inspired by the playable character "Dove" in "Crypt of the Necrodancer". Unlike the other characters, "Dove" cannot kill any enemies and must progress through the game peacefully.
     
-    Here is a line followed by a double line break.
-	This line is only one line break down from the above, Notice that latex can ignore this
-    
-    We can force a break \\ with the break operator.
-    
-	\subsection{Maths}
-    Embedding Maths is Latex's bread and butter    
-    
-    {\centering \Large \(
-        J = \begin{bmatrix}
-            \frac{\delta e}{\delta \theta _0}
-            \frac{\delta e}{\delta \theta _1}
-            \frac{\delta e}{\delta \theta _2}
-        \end{bmatrix}
-        = e_{current} - e_{target} 
-    \)\par}
+    \figuremacro{h}{Home}{Home Screen}{ - Working Nine To Die Starting screen}{1.0}
 	
-	\subsection{Code Listing}
-    You can load segments of code from a file, or embed them directly.
-    
-\begin{lstlisting}[caption = Hello World! in c++]
-#include <iostream>
-
-int main() {
-    std::cout << "Hello World!" << std::endl;
-    std::cin.get();
-    return 0;
-}
-\end{lstlisting}
-
-\lstinputlisting[caption = Hello World! in python script]{./sourceCode/hello.py}
-    
-\subsection{PseudoCode}
-
-\begin{algorithm}[h]
-\For{$i = 0$ \KwTo $100$}{
- print\_number = true\;
-\If{i is divisible by 3}{
- print "Fizz"\;
- print\_number = false\;
-}
-\If{i is divisible by 5}{
- print "Buzz"\;
- print\_number = false\;
-}
-\If{print\_number}{
-    print i\;
-}
-print a newline\;
-}
-\caption{FizzBuzz}
-\end{algorithm}
+	\section {Game Design Document Changes}
+	In the Game Design Document there is a sub objective of unlocking new content. Due to the time constraints of this project, this was not implemented.\\
 	
-\section{Conclusion}	
-\bibliographystyle{ieeetr}
-\bibliography{references}
+	The possibility of having different playable characters is also discussed but unfortunately, again due to time constraints, there is only one playable character.\\
+	
+	There is no asset for the overlord, as this is just a story and not a game play feature this was not included in this prototype game.
+	
+	\section{Software Design}
+	
+	\section{Game Implementation}
+	
+	\section{Evaluation}
+	\paragraph{Comparison to original concept}
+	\paragraph{Comparison against other games in the genre}
+	\paragraph{Quality of the Game}
+	\paragraph{Possible improvements}
+	
+	\section{Resources}
+	Resources where found for this game using the following websites:
+	
+	http://www.1001fonts.com
+	
+	https://freesound.org
+	
+	http://soundbible.com
+	
+	The exact fonts and sounds are referenced in the references section bellow.\\
+	
+	All image assets were created by ourselves.
+	
+\section {References}
+{[1]} p2pnut\\
+"RM Typerighter old Font"\\
+http://www.1001fonts.com/rm-typerighter-old-font.html\\
+\\
+{[2]} The Chemical Workshop \\
+"Taser/High Voltage/Stun Gun/Shock"\\
+https://freesound.org/people/The\_Chemical\_Workshop/sounds/403252/
+\\
+{[3]} JavierZumer\\
+"Taser"\\
+https://freesound.org/people/JavierZumer/sounds/257236/\\
+\\
+{[4]} ShaneF91\\
+"jumping\_1"\\
+https://freesound.org/people/ShaneF91/sounds/386572/\\
+\\
+{[5]} Mike Koenig\\
+"Bounce"\\
+http://soundbible.com/1120-Bounce.html\\
+\\
+{[6]} cabled\_mess\\
+"Jump\_C\_03"\\
+https://freesound.org/people/cabled\_mess/sounds/350903/\\
+\\
+{[7]} lulyc\\
+"Retro game heal sound"\\
+https://freesound.org/people/lulyc/sounds/346116/\\
+\\
+{[8]} djlprojects\\
+"Video Game SFX Positive Action Long Tail"\\
+https://freesound.org/people/djlprojects/sounds/413629/\\
+\\
+{[9]} plasterbrain\\
+"Game Start"\\
+https://freesound.org/people/plasterbrain/sounds/243020/\\
+\\
+{[10]} TreasureSounds\\
+"Item Pickup"\\
+https://freesound.org/people/TreasureSounds/sounds/332629/\\
+\\
+{[11]} timgormly\\
+"8-bit Hurt1"\\
+https://freesound.org/people/timgormly/sounds/170148/\\
+
+
 		
 \end{document}
