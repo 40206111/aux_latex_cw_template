@@ -76,7 +76,7 @@
 	\section{Introduction}
 	
 	The aim of this project was to create a prototype of a 2D video game using C++ and SFML. \\\\
-	The game designed for this is "Working Nine to Die". A rogue like platformer, where the player is expected to make there way through a dungeon of enemies collecting items to make themselves more powerful. The player cannot kill enemies but may knock them out instead. The enemies will wake up, ready to fight a few seconds later.\\\\
+	The game designed for this is "Working Nine to Die"{[12]}. A rogue like platformer, where the player is expected to make there way through a dungeon of enemies collecting items to make themselves more powerful. The player cannot kill enemies but may knock them out instead. The enemies will wake up, ready to fight a few seconds later.\\\\
 	"Working Nine to Die" was heavily inspired by the game "The Binding of Isaac: Rebirth", taking the essence of exploring to find items in order to upgrade your character and make them powerful enough to complete the game, and moving into a 2d platformer game.\\\\
 	The gimmick of this game is inspired by the playable character "Dove" in "Crypt of the Necrodancer". Unlike the other characters, "Dove" cannot kill any enemies and must progress through the game peacefully.
     
@@ -87,7 +87,16 @@
 	
 	The possibility of having different playable characters is also discussed but unfortunately, again due to time constraints, there is only one playable character.\\
 	
-	There is no asset for the overlord, as this is just a story and not a game play feature this was not included in this prototype game.
+	There is no asset for the overlord, as this is just a story and not a game play feature this was not included in this prototype game.\\
+	
+	SVM feature is not complete due to time constraints, the librarian player character is able to go up the "ladder", but the ladder does not appear and there is no restriction on the distance they can travel with this.\\
+	
+	There are not as many levels as we would've liked to have, we more have a prototype screen that gives an idea what the game will be like.\\
+	
+	There are no traps, again just due to time constraints.\\
+	
+	Platforms are not all there and none are one way as was hoped as we had difficulty with this and then ran out of time.
+	
 	
 	\section{Software Design}
 	
@@ -95,11 +104,23 @@
 	
 	\figuremacro{h}{Walls}{Early Game}{ - Getting wall spites to tile}{1.0}
 	\section{Evaluation}
+	\figuremacro{h}{game}{Time Up}{ - What was managed in the time given}{1.0}
+	\section{Evaluation}
 	
 	\paragraph{Comparison to original concept}
+	We did not manage to get the game working to a standard that fully showed off our initial game idea. It is clear from what we did create that the game has potential. However it is missing many of the core mechanics.
 	\paragraph{Comparison against other games in the genre}
+	As the actually made game does not manage to fully show of the concepts we were going for it is hard to compare it against the completed games of the genre. The Concept for the game is an interesting twist for the genre, however in the time given, it would be hard to show this as these games heavily on having a lot of unlocks which we simply did not have the time to put in.
 	\paragraph{Quality of the Game}
+	The actual quality of the game, despite being barely finished is quite good. The Controls can all be remapped and the new bindings are saved without overriding the defaults. There are some platforms you can go through as we simply did not have the time to add colliders, and the enemies also have no colliders so can simply go through them. These are issues with being unfinished rather than inherent problems with the game, the only one issue that really needs to be rectified is it crashes on exiting because of problems deleting box2d bodies. This was not fixed as it was becoming a case that we were spending to much time trying to fix this rather than working on making a working game.
 	\paragraph{Possible improvements}
+	Obviously this game would be improved drastically by simply being finished. Everything that was missed from the game design document due to time would also improve the game. Things not already mentioned that would improve it, would be:
+	
+	-differently assigned wall textures so the tile effect isn't so obvious.
+	
+	-A background texture that doesn't look so uniform when tiled.
+	
+	-Nicer animations for all the characters.
 	
 	\section{Resources}
 	Resources where found for this game using the following websites:
@@ -158,6 +179,9 @@ https://freesound.org/people/TreasureSounds/sounds/332629/\\
 {[11]} timgormly\\
 "8-bit Hurt1"\\
 https://freesound.org/people/timgormly/sounds/170148/\\
+
+{[12]} Working Nine To Die\\
+https://ninetodie.weebly.com/
 
 
 		
